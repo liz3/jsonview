@@ -1,0 +1,84 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@200;400;700;900&display=swap');
+body {
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  font-family: 'Source Code Pro', monospace;
+}
+.btn {
+    padding: 4px 8px;
+    background: #6e6e6e;
+    border-radius: 4px;
+    text-align: center;
+}
+.pad > .btn, .pad > select {
+  margin-right: 4px;
+}
+input {
+  outline: none;
+  border: none;
+  border-bottom: 2px solid rgba(0,0,0,.4);
+  margin-right: 4px;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 1em;
+}
+select {
+    border: none;
+    padding: 4px;
+    font-family: 'Source Code Pro';
+    border-bottom: 2px solid rgba(0,0,0,.4);
+    outline: none;
+}
+.flex-basic {
+  display: flex;
+  align-items: center;
+
+}
+.browser-root {
+  width: 95vw;
+  height: 55vh;
+  margin: 0 auto;
+  border: 2px solid black;
+  padding: 4px;
+  overflow: auto;
+}
+.btn:hover {
+    cursor: pointer;
+}
+.btn span {
+  color: #fff;
+}
+
+.edit-btn {
+    opacity: 0;
+    display: inline;
+    margin-right: 4px;
+}
+.elem-wrapper {
+  padding: 3px 2px;
+}
+.root-wr {
+  padding-left: 16px;
+ }
+.elem-wrapper:hover .edit-btn {
+    opacity: 1;
+}
+.create-row {
+  display: inline;
+  opacity: 0;
+}
+.create-row > * {
+   margin: 0 4px;
+ }
+.container-wr > div:hover >.create-row {
+    opacity: 1;
+}
+.valtype-null, .valtype-boolean {
+  color: purple;
+}
+.valtype-string {
+  color: blue;
+}
+.valtype-number {
+  color: green;
+}
