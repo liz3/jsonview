@@ -260,25 +260,27 @@ const advance = (node, elem, level, isRoot = false) => {
 
 
 const createEditor = (onParse) => {
-  const editorRoot = domUtils.create("div", [], {padding: "10px 15px"});
-  const area = domUtils.create("textarea", [], {width: "100%", height: "25vh"});
+  const editorRoot = domUtils.create("div", [], {padding: "10px 15px"}, false);
+  const area = domUtils.create("textarea", [], {width: "100%", height: "25vh"}, false);
   const button = domUtils.button("parse", ev => {
     onParse(area);
-  });
+  }, false);
   editorRoot.appendChild(area);
   editorRoot.appendChild(button);
   return editorRoot;
 }
 window.addEventListener("DOMContentLoaded", ev => {
   const root = domUtils.elemById("root");
-  const browserRoot = domUtils.create("div", ["browser-root"], null);
+  const browserRoot = domUtils.create("div", ["browser-root"], null, false);
 
   root.appendChild(createEditor(area => {
+    domUtils.clearNodes();
     const parsed = JSON.parse(area.value);
     updateArea = () => {
       area.value = JSON.stringify(parsed, undefined, 2);
     }
     reevaluate = () => {
+      domUtils.clearNodes();
       advance(browserRoot, parsed, 0, true);
       updateArea();
     };

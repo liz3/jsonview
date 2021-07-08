@@ -1,5 +1,5 @@
-
-export const create = (type, classes, style) => {
+let trackedNodes = [];
+export const create = (type, classes, style, track = true) => {
   const element = window.document.createElement(type);
   if(Array.isArray(classes)) {
     element.classList.add(...classes);
@@ -7,8 +7,18 @@ export const create = (type, classes, style) => {
   if(style) {
     Object.keys(style).forEach(k => element.style[k] = style[k]);
   }
+  if (track)
+    trackedNodes.push(element);
   return element;
 };
+
+export const clearNodes = () => {
+  for(const node of trackedNodes) {
+    node.remove();
+  }
+  trackedNodes = [];
+};
+
 export const createWithText = (type, value, classes, style) => {
   const e = create(type, classes, style);
   e.textContent = value;
@@ -28,9 +38,9 @@ export const typeSelect = (value, onChange) => {
   });
   return root;
 };
-export const button = (name, click) => {
-  const wrapper = create("div", ["btn"], null);
-  const text = create("span", [], null);
+export const button = (name, click, tracked = true) => {
+  const wrapper = create("div", ["btn"], null, tracked);
+  const text = create("span", [], null, tracked);
   text.textContent = name;
   wrapper.appendChild(text);
   wrapper.addEventListener("click", ev => click(ev));
