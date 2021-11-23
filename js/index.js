@@ -6,6 +6,25 @@ let reevaluate = null;
 const createElementComplex = (containerNode, containerElem, indexOrKey, isArray, level, isRoot = false, parentArray) => {
   const wrapper = domUtils.create("div", ["container-wr"], null);
   const keyWrapper = domUtils.create("div", [], null);
+  const valueWrapper = domUtils.create("div", [isRoot ? "root-wr" : null],  {marginLeft: `${level}rem`});
+
+  if(!isRoot) {
+    const collapseButton = domUtils.createWithText("span", "-", [], {cursor: "pointer", marginRight: "5px"});
+    let hiding = false;
+    collapseButton.addEventListener("click", () => {
+      if(!hiding) {
+        valueWrapper.style.transform = "scaleY(0)";
+        collapseButton.textContent = "+";
+      } else {
+        valueWrapper.style.transform = "scaleY(1)";
+        collapseButton.textContent = "-";
+      }
+      hiding = !hiding;
+    });
+
+    keyWrapper.append(collapseButton);
+
+  }
   keyWrapper.appendChild(domUtils.createWithText("span", isRoot ? "root: " : `${indexOrKey}: `, [], null));
   keyWrapper.appendChild(domUtils.createWithText("span", isArray ? 'array' : 'object', [], {opacity: 0.6}));
 
@@ -13,8 +32,8 @@ const createElementComplex = (containerNode, containerElem, indexOrKey, isArray,
   let createValue = '';
   let createType = "string";
 
-
   const createWrapper = domUtils.create("div", ["create-row"], null);
+
   const valueInput = domUtils.input("Value", '', newVal => {
     createValue = newVal;
   });
@@ -101,9 +120,9 @@ const createElementComplex = (containerNode, containerElem, indexOrKey, isArray,
   });
     alterBtn.style.display = "inline";
     createWrapper.appendChild(alterBtn);
-}
+  }
   keyWrapper.appendChild(createWrapper);
-  const valueWrapper = domUtils.create("div", [isRoot ? "root-wr" : null],  {marginLeft: `${level}rem`});
+
   wrapper.appendChild(keyWrapper);
   wrapper.appendChild(valueWrapper);
   return {wrapper, keyWrapper, valueWrapper};
@@ -163,7 +182,7 @@ const createElementSimple = (containerNode, containerElem, indexOrKey, isArray) 
       ev.stopPropagation();
       closeCurrentEdit();
       closeCurrentEdit = null;
-    });
+   });
     const saveBtn = domUtils.button("Save", () => {
       ev.stopPropagation();
       if (key !== indexOrKey && !isArray) {
@@ -260,13 +279,29 @@ const advance = (node, elem, level, isRoot = false) => {
 
 
 const createEditor = (onParse) => {
-  const editorRoot = domUtils.create("div", [], {padding: "10px 15px"}, false);
-  const area = domUtils.create("textarea", [], {width: "100%", height: "25vh"}, false);
+  const editorRoot = domUtils.create("div", [], {padding: "10px 15px", display: "flex"}, false);
+  const buttonRow = domUtils.create("div", [], null, false);
+  const area = domUtils.create("textarea", [], {width: "100%", height: "20vh", marginRight: "20px"}, false);
   const button = domUtils.button("parse", ev => {
     onParse(area);
   }, false);
+  let isDark = true;
+  const theme = domUtils.button("Dark", ev => {
+    if(isDark) {
+      ev.target.innerHTML = "<span>Light</span>";
+      window.document.body.classList.remove("dark-theme");
+    } else {
+      ev.target.innerHTML = "<span>Dark</span>";
+      window.document.body.classList.add("dark-theme");
+
+    }
+    isDark = !isDark;
+  }, false);
+
   editorRoot.appendChild(area);
-  editorRoot.appendChild(button);
+  buttonRow.appendChild(button);
+  buttonRow.appendChild(theme);
+  editorRoot.appendChild(buttonRow);
   return editorRoot;
 }
 window.addEventListener("DOMContentLoaded", ev => {

@@ -35,8 +35,8 @@ select {
 
 }
 .browser-root {
-  width: 95vw;
-  height: 55vh;
+  width: 98vw;
+  height: 70vh;
   margin: 0 auto;
   border: 2px solid black;
   padding: 4px;
@@ -81,4 +81,33 @@ select {
 }
 .valtype-number {
   color: green;
+}
+.dark-theme {
+    background: #212121;
+}
+.dark-theme input, .dark-theme textarea {
+    background: #2e2e2e;
+    color: #cecece;
+}
+.dark-theme span, .dark-theme div {
+    color: #cecece;
+}
+.dark-theme .browser-root {
+    background: #2e2e2e;
+}
+.dark-theme .btn, .dark-theme select {
+    background: #4e4e4e;
+}
+.dark-theme .btn span, .dark-theme select {
+    color: #eaeaea;
+}
+
+.dark-theme .valtype-null, .dark-theme .valtype-boolean {
+  color: #b12fb1;
+}
+.dark-theme .valtype-string {
+  color: #2f94ff;
+}
+.dark-theme .valtype-number {
+  color: #00dd12;
 }
