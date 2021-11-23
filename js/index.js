@@ -13,10 +13,10 @@ const createElementComplex = (containerNode, containerElem, indexOrKey, isArray,
     let hiding = false;
     collapseButton.addEventListener("click", () => {
       if(!hiding) {
-        valueWrapper.style.transform = "scaleY(0)";
+        valueWrapper.style.display = "none";
         collapseButton.textContent = "+";
       } else {
-        valueWrapper.style.transform = "scaleY(1)";
+        valueWrapper.style.display = "block";
         collapseButton.textContent = "-";
       }
       hiding = !hiding;
