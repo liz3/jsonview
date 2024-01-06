@@ -144,7 +144,7 @@ const createElementSimple = (containerNode, containerElem, indexOrKey, isArray) 
 
   const restoreDefault = () => {
     wrapper.textContent = `${indexOrKey}: `;
-    const valElem = domUtils.createWithText("span", val, ['elem-value', `valtype-${val === null ? 'null' : type}`], null);
+    const valElem = domUtils.createWithText("span", val=== false ? "false" : val, ['elem-value', `valtype-${val === null ? 'null' : type}`], null);
     valElem.addEventListener("click", ev => edit(ev));
     wrapper.appendChild(valElem);
     wrapper.appendChild(domUtils.createWithText("span", ` ${type}`, ['elem-type'], {opacity: 0.6}));
